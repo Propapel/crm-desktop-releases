@@ -42,6 +42,22 @@ gh release create vX.Y.Z CRM-X.Y.Z.msi \
   --notes "Novedades de esta versión…"
 ```
 
+## Notificaciones push (opcional)
+
+La app recibe push de Firebase en escritorio con [fcm-desktop](https://github.com/eliasmp07/fcm-desktop).
+Para activarlas, antes de generar el MSI agrega en `CRM-PROPAPEL/local.properties`
+(o como variables de entorno) los datos de una app **Web** de Firebase del mismo proyecto que usa el backend:
+
+```properties
+FCM_WEB_PROJECT_ID=tu-proyecto
+FCM_WEB_APP_ID=1:1234567890:web:abc123
+FCM_WEB_API_KEY=AIza...
+```
+
+- En Google Cloud la API key debe permitir **Firebase Installations API** y **FCM Registration API**, sin restricción de referrer, Android ni iOS.
+- Si se compila sin estos datos el push queda apagado y la app sigue avisando de tickets nuevos consultando al servidor cada 30 s.
+- Los equipos necesitan salida a `mtalk.google.com` por el puerto 5228 (o 443).
+
 ## Reglas que no hay que romper
 
 - El `upgradeUuid` del MSI (`0CFFB049-CB02-40E6-B9F1-606ECC204D7E`) nunca cambia; si cambia,
